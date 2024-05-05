@@ -1,0 +1,22 @@
+# templates/service.yaml
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-clickhouse
+  labels:
+    app: clickhouse
+spec:
+  type: {{ .Values.clickhouse.service.type }} # Use the service type from values.yaml
+  ports:
+    - port: {{ .Values.clickhouse.service.ports.http }}
+      targetPort: {{ .Values.clickhouse.service.ports.http }}
+      name: http
+    - port: {{ .Values.clickhouse.service.ports.rpc }}
+      targetPort: {{ .Values.clickhouse.service.ports.rpc }}
+      name: rpc
+    - port: {{ .Values.clickhouse.service.ports.replication }}
+      targetPort: {{ .Values.clickhouse.service.ports.replication }}
+      name: replication
+  selector:
+    app: clickhouse

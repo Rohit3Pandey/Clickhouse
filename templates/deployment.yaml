@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-clickhouse
+  labels:
+    app: clickhouse
+spec:
+  replicas: {{ .Values.clickhouse.replicaCount }}
+  selector:
+    matchLabels:
+      app: clickhouse
+  template:
+    metadata:
+      labels:
+        app: clickhouse
+    spec:
+      containers:
+        - name: clickhouse
+          image: "{{ .Values.clickhouse.image.repository }}:{{ .Values.clickhouse.image.tag }}"
+          resources:
+            limits:
+              cpu: {{ .Values.clickhouse.resources.limits.cpu }}
+              memory: {{ .Values.clickhouse.resources.limits.memory }}
+            requests:
+              cpu: {{ .Values.clickhouse.resources.requests.cpu }}
+              memory: {{ .Values.clickhouse.resources.requests.memory }}
+          ports:
+            - containerPort: {{ .Values.clickhouse.service.ports.http }}
+              name: http
+            - containerPort: {{ .Values.clickhouse.service.ports.rpc }}
+              name: rpc
+            - containerPort: {{ .Values.clickhouse.service.ports.replication }}
+              name: replication
+          volumeMounts:
+            - name: hot-storage
+              mountPath: /var/lib/clickhouse/hot-storage
+            - name: cold-storage
+              mountPath: /var/lib/clickhouse/cold-storage
+      volumes:
+        - name: hot-storage
+          persistentVolumeClaim:
+            claimName: hot-storage-pvc
+        - name: cold-storage
+          persistentVolumeClaim:
+            claimName: cold-storage-pvc

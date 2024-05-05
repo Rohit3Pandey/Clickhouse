@@ -1,0 +1,25 @@
+# templates/persistentvolumeclaims.yaml
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: hot-storage-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.clickhouse.hotStorage }}
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: cold-storage-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.clickhouse.coldStorage }}
