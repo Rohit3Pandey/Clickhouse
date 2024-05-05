@@ -41,7 +41,9 @@ Congrats you have established connection with clickhouse-server.
 ```SQL
 CREATE DATABASE MY_CLICK_DB;
 USE MY_CLICK_DB;
+SELECT currentDatabase();
 ```
+![SQL](https://github.com/Rohit3Pandey/Images/blob/main/Screenshot%20(106).png)
 Here, you have created and going to use a different db than default. 
 
 ### Now let's create a table and insert data based on assignment
@@ -56,17 +58,20 @@ ENGINE = MergeTree
 PARTITION BY D
 ORDER BY B;
 ```
+![SQL](https://github.com/Rohit3Pandey/Images/blob/main/Screenshot%20(107).png)
 ```SQL
 INSERT INTO dz_test
 SELECT number, CAST(number AS String), '2024-05-05' AS D
 FROM numbers(1000000000); -- 1e9 is equal to 1 billion, use a smaller value for testing
 ```
+![SQL](https://github.com/Rohit3Pandey/Images/blob/main/Screenshot%20(108).png)
 P.S this data is of 8 GB.
 
 ### Below command will return 10 rows from 1 billion rows it has inserted in the db
 ```SQL
 SELECT * FROM dz_test LIMIT 10;
 ```
+![SQL](https://github.com/Rohit3Pandey/Images/blob/main/Screenshot%20(109).png)
 ### DO NOT FORGET TO CLEAR EVERYTHING 
 ```SQL
 DROP DATABASE MY_CLICK_DB;
