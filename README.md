@@ -1,6 +1,6 @@
 # Rohit-DataZip-Assignment
 
-### Prerequisite 
+### Prerequisites
 1. Helm should be available locally.
 2. Minikube/Kind kuberenetes Cluster should be up and running.
 
