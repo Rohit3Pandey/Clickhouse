@@ -82,7 +82,7 @@ SELECT formatReadableSize(sum(data_compressed_bytes)) AS total_size
 FROM system.parts
 WHERE table = 'dz_test';
 ```
-### At kast use helm uninstall
+### At last use helm uninstall
 ```bash
 helm uninstall clickhouse
 ```
