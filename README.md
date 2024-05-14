@@ -33,7 +33,7 @@ kubectl exec -it clickhouse-client -- bash
 this will open an bash interactive terminal for you. 
 
 ```bash
-clickhouse-client --host clickhouse-cliockhouse --port 9000
+clickhouse-client --host clickhouse-clickhouse --port 9000
 ```
 Congrats you have established connection with clickhouse-server. 
 
