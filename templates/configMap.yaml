@@ -10,11 +10,11 @@ data:
         <disks>
           <hot_disk>
             <type>local</type>
-            <path>/var/lib/clickhouse</path>
+            <path>{{ .Values.clickhouse.hotConfiguration.path }}</path>
           </hot_disk>
           <cold_disk>
             <type>local</type>
-            <path>/var/lib/clickhouse</path>
+            <path>{{ .Values.clickhouse.coldConfiguration.path }}</path>
           </cold_disk>
         </disks>
 
@@ -28,7 +28,7 @@ data:
                 <disk>cold_disk</disk>
               </cold>
             </volumes>
-            <move_factor>0.2</move_factor>
+            <move_factor>{{ .Values.clickhouse.coldConfiguration.moveFactor }}</move_factor>
           </hot_cold>
         </policies>
       </storage_configuration>
