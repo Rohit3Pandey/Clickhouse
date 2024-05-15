@@ -1,0 +1,28 @@
+clickhouse:
+  image:
+    repository: clickhouse/clickhouse-server
+    tag: latest
+    pullPolicy: IfNotPresent
+  replicaCount: 1
+  hotConfiguration:
+    path: "/var/lib/clickhouse"
+    maxSize: "5Gi"
+  coldConfiguration:
+    path: "/var/lib/clickhouse"
+    maxSize: "10Gi"
+    moveFactor: 0.2
+  resources:
+    limits:
+      cpu: 4
+      memory: 10Gi  
+    requests:
+      cpu: 6
+      memory: 12Gi  
+  service:
+    type: LoadBalancer
+    ports:
+      http: 8123
+      rpc: 9000
+      replication: 9009
+  client:
+    enabled: true
