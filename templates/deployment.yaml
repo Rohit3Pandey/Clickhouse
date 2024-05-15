@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: clickhouse
+  name: {{ .Release.Name }}-clickhouse
   labels:
     app: clickhouse
 spec:
@@ -36,16 +36,20 @@ spec:
               name: replication
           volumeMounts:
             - name: hot-storage
-              mountPath: "{{ .Values.clickhouse.hotConfiguration.path }}"
+              mountPath: {{ .Values.clickhouse.hotConfiguration.path }}
             - name: cold-storage
-              mountPath: "{{ .Values.clickhouse.coldConfiguration.path }}"
+              mountPath: {{ .Values.clickhouse.coldConfiguration.path }}
             - name: config
               mountPath: /etc/clickhouse-server/config.d
       volumes:
         - name: hot-storage
-          emptyDir: {}
+          awsElasticBlockStore:
+            volumeID: /dev/xvdb
+            fsType: ext4
         - name: cold-storage
-          emptyDir: {}
+          awsElasticBlockStore:
+            volumeID: /dev/xvdf
+            fsType: ext4
         - name: config
           configMap:
             name: clickhouse-config
