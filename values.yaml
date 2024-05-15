@@ -1,23 +1,23 @@
 clickhouse:
   image:
     repository: clickhouse/clickhouse-server
-    tag: latest
+    tag: head-alpine
     pullPolicy: IfNotPresent
   replicaCount: 1
   hotConfiguration:
-    path: "/var/lib/clickhouse"
-    maxSize: "5Gi"
+    path: "/var/lib/clickhouse/hot-storage"
+    size: "10Gi"
   coldConfiguration:
-    path: "/var/lib/clickhouse"
-    maxSize: "10Gi"
+    path: "/var/lib/clickhouse/cold-storage"
+    size: "20Gi"
     moveFactor: 0.2
   resources:
     limits:
       cpu: 4
-      memory: 10Gi  
+      memory: 16Gi
     requests:
-      cpu: 6
-      memory: 12Gi  
+      cpu: 2
+      memory: 8Gi
   service:
     type: LoadBalancer
     ports:
