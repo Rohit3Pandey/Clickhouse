@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: clickhouse-client
+  name: {{ .Release.Name }}-clickhouse-client
 spec:
   containers:
   - name: clickhouse-client
     image: yandex/clickhouse-client:latest
-    command: ["tail", "-f", "/dev/null"]  # Keep the container running
+    command: ["tail", "-f", "/dev/null"]
     env:
     - name: CLICKHOUSE_HOST
-      value: "clickhouse-clickhouse"  # Replace with your ClickHouse service name
+      value: "clickhouse-clickhouse"
     - name: CLICKHOUSE_PORT
-      value: "8123"  # Replace with the appropriate port for your ClickHouse service
+      value: "8123"
