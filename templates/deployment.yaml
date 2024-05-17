@@ -24,6 +24,9 @@ spec:
             requests:
               cpu: {{ .Values.clickhouse.resources.requests.cpu }}
               memory: {{ .Values.clickhouse.resources.requests.memory }}
+          env:
+            - name: ENABLE_PART_LOG
+              value: "1"
           ports:
             - containerPort: {{ .Values.clickhouse.service.ports.http }}
               name: http
@@ -33,13 +36,16 @@ spec:
               name: replication
           volumeMounts:
             - name: hot-storage
-              mountPath: /var/lib/clickhouse/hot-storage
+              mountPath: {{ .Values.clickhouse.persistence.hotStorage.mountPath }}
             - name: cold-storage
-              mountPath: /var/lib/clickhouse/cold-storage
+              mountPath: {{ .Values.clickhouse.persistence.coldStorage.mountPath }}
+            - name: clickhouse-config
+              mountPath: /etc/clickhouse-server/config.d/storage_configuration.xml
       volumes:
         - name: hot-storage
-          persistentVolumeClaim:
-            claimName: hot-storage-pvc
+          emptyDir: {}
         - name: cold-storage
-          persistentVolumeClaim:
-            claimName: cold-storage-pvc
+          emptyDir: {}
+        - name: clickhouse-config
+          configMap:
+            name: clickhouse-config
