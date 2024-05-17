@@ -4,21 +4,31 @@ clickhouse:
     tag: head-alpine
     pullPolicy: IfNotPresent
   replicaCount: 1
-  hotStorage: "5Gi"
-  coldStorage: "10Gi"
-  moveFactor: 0.2
   resources:
     limits:
       cpu: 1
       memory: 2Gi
     requests:
-      cpu: 500m
-      memory: 1Gi
+      cpu: 1
+      memory: 2Gi
+
+  persistence:
+    hotStorage:
+      mountPath: /var/lib/clickhouse/hot-storage
+      accessModes:
+        - ReadWriteOnce
+      size: 5Gi
+    coldStorage:
+      mountPath: /var/lib/clickhouse/cold-storage
+      accessModes:
+        - ReadWriteOnce
+      size: 10Gi
+
   service:
-    type: NodePort # Change service type to NodePort
+    type: LoadBalancer
     ports:
       http: 8123
       rpc: 9000
       replication: 9009
   client:
-    enabled: true 
+    enabled: true
