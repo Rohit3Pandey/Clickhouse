@@ -89,7 +89,7 @@ helm uninstall clickhouse
 This will terminate the pods!!!
 
 ### Use below mentioned links to understand how to setup hot and cold volumes with move factor. 
-![part-1](https://altinity.com/blog/2019-11-27-amplifying-clickhouse-capacity-with-multi-volume-storage-part-1)
+https://altinity.com/blog/2019-11-27-amplifying-clickhouse-capacity-with-multi-volume-storage-part-1
 
-![part-2](https://altinity.com/blog/2019-11-29-amplifying-clickhouse-capacity-with-multi-volume-storage-part-2)
+https://altinity.com/blog/2019-11-29-amplifying-clickhouse-capacity-with-multi-volume-storage-part-2
 
